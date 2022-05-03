@@ -1,20 +1,34 @@
 import random
 import re
+from collections import Counter
 
 def solve():
-  valid_words = ALL_WORDS
+  valid_words = word_list
   while True:
     guess = make_guess(valid_words)
     print("Guess: " + guess.upper())
     result = collect_result()
-    if result == CORRECT:
+    if result == correct:
         print("I won!")
         break
     valid_words = update_valid_words(valid_words, guess, result)
 
 def make_guess(valid_words):
-    return random.choice(valid_words)
+  # Räknar counts      
+  counts = Counter()
+  for word in valid_words:
+    counts.update(word)
+  # Ranka orden på deras counts    
+  # lista av tuples (score, word)     
+  word_scores = []
+  for word in valid_words:
+    unique_chars = set(word)
+    word_score = sum([counts.get(c) for c in unique_chars])
+    word_scores.append((word_score, word))
+  # sortera listan och ta högsta värdet     
+  return sorted(word_scores, reverse=True)[0][1]
 
+ 
 def collect_result():
   # Collect the result of our guess from the user
   result = input("What's the result? (_/?/!) ")
