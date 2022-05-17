@@ -1,9 +1,22 @@
 import random
 import re
 from collections import Counter
+import SwedishWordle
+
+
+
+
+
+game = SwedishWordle.Game(5)
+
+guess1 = ("JAGAD")
+
+result1 = game.Guess(guess1)
+
+print(str(result1))
 
 def solve():
-  valid_words = word_list
+  valid_words = wordlist
   while True:
     guess = make_guess(valid_words)
     print("Guess: " + guess.upper())
@@ -52,3 +65,4 @@ def get_result(guess, answer):
   
 def update_valid_words(valid_words, guess, result):
   return [word for word in valid_words if get_result(guess, word) == result]
+  
